@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpwcnvjg1mrp5"]
+
+[ext_resource type="Script" path="res://Scripts/controle botões.gd" id="1_lmkn5"]
+
+[node name="Controle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lmkn5")
+
+[node name="Botão teste 1" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 49.0
+offset_top = -40.0
+offset_right = 139.0
+offset_bottom = 40.0
+grow_vertical = 2
+text = "Teste 1"
+
+[node name="Botão teste 2" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -40.0
+offset_right = 45.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.992542)
+text = "Teste 2"
+
+[node name="Botão teste 3" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -138.0
+offset_top = -40.0
+offset_right = -48.0
+offset_bottom = 40.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.994642, 1)
+text = "Teste 3"
+
+[connection signal="pressed" from="Botão teste 1" to="." method="_on_botão_teste_1_pressed"]
+[connection signal="pressed" from="Botão teste 2" to="." method="_on_botão_teste_2_pressed"]
+[connection signal="pressed" from="Botão teste 3" to="." method="_on_botão_teste_3_pressed"]

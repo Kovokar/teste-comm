@@ -1,0 +1,74 @@
+[gd_scene load_steps=12 format=3 uid="uid://cnioy0bfpj27h"]
+
+[ext_resource type="Script" path="res://Scripts/godot_jumper.gd" id="1_1salw"]
+[ext_resource type="Script" path="res://Scripts/playerjumper.gd" id="1_ife1u"]
+[ext_resource type="Script" path="res://Scripts/background.gd" id="1_y4svi"]
+[ext_resource type="Texture2D" uid="uid://dso4lajqcamxq" path="res://Sprites/3684d769ff867b1efb8110ec2676cc99.jpg" id="2_ewonj"]
+[ext_resource type="Texture2D" uid="uid://cjh6yl53j6vb7" path="res://Sprites/icon.svg" id="2_q71tc"]
+[ext_resource type="Script" path="res://Scripts/score.gd" id="5_yeyr7"]
+[ext_resource type="PackedScene" uid="uid://bng2400i1gomc" path="res://Scenes/obstacles.tscn" id="8_7ojor"]
+[ext_resource type="PackedScene" uid="uid://fpoc0ls6kegx" path="res://Scenes/restart.tscn" id="8_erhbm"]
+[ext_resource type="Script" path="res://Scripts/spawn_timer.gd" id="8_wg1lq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mskhh"]
+size = Vector2(37.2004, 39.4642)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eo3di"]
+size = Vector2(682, 20)
+
+[node name="godot jumper" type="Node2D"]
+script = ExtResource("1_1salw")
+
+[node name="background" type="ParallaxBackground" parent="."]
+script = ExtResource("1_y4svi")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="background"]
+motion_mirroring = Vector2(640, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="background/ParallaxLayer"]
+scale = Vector2(0.869565, 1.3913)
+texture = ExtResource("2_ewonj")
+centered = false
+
+[node name="player" type="CharacterBody2D" parent="."]
+position = Vector2(85, 394)
+scale = Vector2(1.90858, 1.82444)
+script = ExtResource("1_ife1u")
+
+[node name="Icon" type="Sprite2D" parent="player"]
+position = Vector2(-3.8147e-06, -0.548111)
+scale = Vector2(0.339749, 0.355417)
+texture = ExtResource("2_q71tc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+position = Vector2(3.8147e-06, -7.62939e-06)
+shape = SubResource("RectangleShape2D_mskhh")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(16, -40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(324, 485)
+shape = SubResource("RectangleShape2D_eo3di")
+
+[node name="score" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Pontuação: 0"
+script = ExtResource("5_yeyr7")
+
+[node name="ScoreTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="restart" parent="." instance=ExtResource("8_erhbm")]
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true
+script = ExtResource("8_wg1lq")
+
+[node name="obstacles" parent="." instance=ExtResource("8_7ojor")]
+position = Vector2(705, 396)
+
+[connection signal="hit" from="player" to="." method="_on_player_hit"]
+[connection signal="timeout" from="ScoreTimer" to="score" method="_on_score_timer_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]
